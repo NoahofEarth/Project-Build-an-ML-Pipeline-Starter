@@ -17,7 +17,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, FunctionTransformer
+from sklearn.preprocessing import OrdinalEncoder, FunctionTransformer, OneHotEncoder
 
 import wandb
 from sklearn.ensemble import RandomForestRegressor
@@ -36,6 +36,7 @@ def delta_date_feature(dates):
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)-15s %(message)s")
 logger = logging.getLogger()
+
 
 def go(args):
 
@@ -72,6 +73,7 @@ def go(args):
 
     ######################################
     # Fit the pipeline sk_pipe by calling the .fit method on X_train and y_train
+    # YOUR CODE HERE
     ######################################
     sk_pipe.fit(X_train, y_train)
 
@@ -94,11 +96,11 @@ def go(args):
     ######################################
     # Save the sk_pipe pipeline as a mlflow.sklearn model in the directory "random_forest_dir"
     # HINT: use mlflow.sklearn.save_model
-    signature = mlflow.models.infer_signature(X_val, y_pred)
+    #signature = mlflow.models.infer_signature(X_val, y_pred)
     mlflow.sklearn.save_model(
-        sk_model = sk_pipe,
-        path = "random_forest_dir",
-        signature = signature,
+        sk_pipe,
+        "random_forest_dir", # YOUR CODE HERE
+        #signature = signature,
         input_example = X_train.iloc[:5]
     )
     ######################################
@@ -121,7 +123,7 @@ def go(args):
     # Here we save variable r_squared under the "r2" key
     run.summary['r2'] = r_squared
     # Now save the variable mae under the key "mae".
-    run.summary['mae'] = mae
+    run.summary["mae"] = mae # YOUR CODE HERE
     ######################################
 
     # Upload to W&B the feture importance visualization
@@ -165,7 +167,7 @@ def get_inference_pipeline(rf_config, max_tfidf_features):
     # 2 - A OneHotEncoder() step to encode the variable
     non_ordinal_categorical_preproc = make_pipeline(
         SimpleImputer(strategy="most_frequent"),
-        OneHotEncoder()
+        OneHotEncoder() # YOUR CODE HERE
     )
     ######################################
 

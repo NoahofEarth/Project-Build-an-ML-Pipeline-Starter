@@ -21,7 +21,7 @@ def go(args):
     
     run = wandb.init(
     project="nyc_airbnb",
-    entity="amgrennan-western-governors-university",
+    entity="noah-of-earth-western-governors-university",
     job_type="basic_cleaning",
     group="cleaning",
     save_code=True
